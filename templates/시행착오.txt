@@ -1,0 +1,157 @@
+from calender.models import Cal
+from django.shortcuts import render
+from django.views import View
+
+
+class CalenderView(View):
+
+    def get(self, request):
+
+        cal = Cal.objects.all()
+        print (cal)
+        context = {'cal':cal}
+        return render(request, 'calender.html', context)
+
+    def post(self, request):
+        pass
+
+
+
+class CalenderView(View):
+
+    def get(self, request):
+
+        form = request.GET.dict()
+        cal = Cal.objects.filter(id= form['id'])
+        print (cal)
+        context = {'id':cal.id, 'time':cal.time,'gudan1':cal.gudan1, 'gudan2':cal.gudan2,'regdate':cal.regdate,}
+        return render(request, 'calender.html', context)
+
+    def post(self, request):
+        pass
+
+
+
+
+class CalenderView(View):
+
+    def get(self, request):
+        form = request.GET.dict()
+        cal = Cal.objects.all()
+        cal = list(cal.values())
+
+        regdate = Cal.objects.filter(regdate='2022.07.02')
+
+        regdate = list(regdate.values())
+
+        print(regdate)
+
+        context= {'cal':cal, 'regdate':regdate}
+        return render(request, 'calender.html', context)
+
+    def post(self, request):
+        pass
+
+
+list형태로 변환시켜서 <Cal: Cal object (1)> 형태로 나오던 것을
+
+[{'id':1, 'regdate': '2022.07.02', 'time': '18:00', 'gudan1': '제주', 'gudan2': '서울'}] 로
+
+최소한 문자화해서 출력하는것은 성공했다
+
+
+물론 이것은 form['regdate']를 이용한 것이 아니라 특정 날짜를 조회한 제한적인 포맷이라서 해결해야함
+
+
+문제는 본래 csv형식의 파일을 list로 출력시켰기 때문에
+
+이걸 split을 이용해서 자르고 싶은데 잘 안된다
+
+사실 list로 변환시키니 json형태로 형변환이 되어버려서
+
+json을 다시 다른 형태로 변환시켜야 한다
+
+regdate = list(regdate.values()) 를 프린트하면 위의 결과가 나오고
+
+이걸 json.dumps로 변환하면 한글이 직렬화되어서 이상하게 출력,
+
+이 json.dumps를 다시 json.loads로 역직렬화하면 한글이 제대로 나오지만 그 결과는 list형변환과 똑같다
+
+
+
+어쨌든 이 json형태를 split하고 싶었는데 list는 자를 수 없었다(list, dumps->loads 포함)
+
+다행히도 dumps형태는 split이 가능했기 때문에 (:)를 이용해서 한번, (,)를 이용해서 두번 자르는식으로
+
+날짜를 출력할 수 있었다. 아마 같은 방법으로 시간도 출력할 수 있을 것이다
+
+문제는 이렇게되면 한글이 깨져서 나온다는 것과 불편하게 몇 번씩 잘라야 한다는 것
+
+테이블 데이터를 서울이 아니라 seoul같은 영문으로 출력시키면 어쨌든 해결은 되겠지만 불완전한 방법이다
+
+혹시 view말고 html에서 역직렬화해서 출력할수는 없을까?
+
+그리고 json형식 파일이기 때문에 "2022.07.02"로 출력되어 나온다. 2022.07.02로 출력되어야 한다
+
+이건 |date : 'Y-m-d' 형식으로 쓰면 해결될 것 같기도
+
+아니, 되지 않는다. 어쨌든 데이터파일 자체는 가지고 있으니까
+
+날짜 타입을 text로 해놓은 기존 테이블을 지우고
+
+regdate에 datetimefield 속성으로 테이블을 생성한 후
+
+외부 파일에서 데이터를 가져오니 날짜 형식으로 제대로 출력되었다
+
+하지만 이러니까 objects.all()에서 불러온 데이터에서 regdate가 None으로 표시된다
+
+objects.filter(regdate=)로 조회하니까 나오지 않는다.
+
+콘솔이랑 데이터에는 자료가 분명히 들어가 있다. SQL문을 통해서 확인하면 그렇다
+
+YYYY-mm-dd형식을 이용해서 조회하면 날짜가 검색되기는 하는데,
+
+그냥 출력하면 쿼리셋[], 리스트 형변환해서 출력하면 []로 값이 없는 상태(?)로 출력된다
+
+쿼리셋을 형변환해도 쿼리셋[]로 출력된다
+
+당장 당면한 문제들은 좀 되돌려야 할 것 같다.
+
+
+
+
+일단은 노가다하는 식으로 날짜를 검색한 후 split으로 잘라서 해봤지만
+
+이런 식으로는 불가능하다. 아니 가능한가? 경기수가 몇개가 됐건 간에
+
+각 값이 증가되는 숫자는 비슷하지 않을까. 규칙성 자체는 찾았지만 그것을 view에서 처리하는 것은 다른 일이다.
+
+어쨌든, 정해진 날짜를 검색하는 대신 form['redgdate']로 받아와야 한다
+
+print를 이용해서 form을 정의하고 찍어보니 {}로 나온다.
+
+빈 값이라는 뜻이다
+
+html문서에서 넘기는 값이 없다 무슨 값을 넘겨주고 받을지
+
+받아오는 값이 유의미한 것인지, 그걸 또 어떻게 적용할 것인지는 별개의 일이다
+
+
+
+테이블도 하나밖에 없어서 외부키나 join사용할일도 없는데
+
+그냥 데이터 받아와서 쏴주기만 하면 되는건데 어떻게 하는지 모르겠다
+
+
+
+규칙성 자체는 찾았다. get방식을 쓰지만 form에는 데이터가 들어가지 않는다.(입력하지 않았으니)
+
+날짜 조건을 걸고 하나하나 objects.filter를 걸려면 날짜만 10번을 반복해야 한다.
+
+각 조건들의 규칙성 자체는 찾았으니까 차라리 objects.all로 모든 데이터를 가져온 뒤에
+
+구문을 작성하는게 차라리 나을지도 모르겠다. 하지만 split(':')[4]같은 형식의 구문에서
+
+뒤에 있는 [4]를 [4+6n]형식으로 반복문을 작성해줘야 하는데 이게 과연 가능할까?
+
+그리고 n이라는 수는 어떻게 잡아서 걸어줄 것인지도
