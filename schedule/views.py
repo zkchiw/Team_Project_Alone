@@ -3,6 +3,7 @@ from schedule.models import Cal
 from django.shortcuts import render
 from django.views import View
 
+
 class ScheduleView(View):
 
     def get(self, request):
@@ -41,7 +42,7 @@ class ScheduleView(View):
         # print(gudan4)
 
         context = {'date': date4, 'time':time2, 'gudan1':gudan2, 'gudan2':gudan4}
-        return render(request, 'calender.html', context)
+        return render(request, 'schedule.html', context)
 
         # 규칙성 자체는 찾았다. get방식을 쓰지만 form에는 데이터가 들어가지 않는다.(입력하지 않았으니)
         # 날짜 조건을 걸고 하나하나 objects.filter를 걸려면 날짜만 10번을 반복해야 한다.
@@ -52,3 +53,47 @@ class ScheduleView(View):
 
     def post(self, request):
         pass
+
+class JulyView(View):
+    def get(self, request):
+            return render(request, 'calender/july_all.html')
+
+class JulyView02(View):
+    def get(self, request):
+            return render(request, 'calender/july_02.html')
+
+class JulyView03(View):
+    def get(self, request):
+            return render(request, 'calender/july_03.html')
+
+class JulyView05(View):
+    def get(self, request):
+            return render(request, 'calender/july_05.html')
+
+class JulyView06(View):
+    def get(self, request):
+            return render(request, 'calender/july_06.html')
+
+class JulyView08(View):
+    def get(self, request):
+            return render(request, 'calender/july_08.html')
+
+class JulyView09(View):
+    def get(self, request):
+            return render(request, 'calender/july_09.html')
+
+class JulyView10(View):
+    def get(self, request):
+            return render(request, 'calender/july_10.html')
+
+class JulyView16(View):
+    def get(self, request):
+            return render(request, 'calender/july_16.html')
+
+class JulyView30(View):
+    def get(self, request):
+            return render(request, 'calender/july_30.html')
+
+class JulyView31(View):
+    def get(self, request):
+            return render(request, 'calender/july_31.html')
