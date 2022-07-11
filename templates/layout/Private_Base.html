@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+   <title>{% block title %}test{% endblock %}</title>
+   {% block style %}
+        <style>
+        #sample td{padding: 10px; }
+        #sample {margin:auto ; padding: 10px ;border: solid red 1px}
+        tr{border: 1px black}
+    </style>
+
+   {% endblock %}
+</head>
+
+<body>
+    {% block contents %}{% endblock %}
+    <script src ="/static/css/vendor/js/DateSelector.js"></script>
+</body>
+</html>

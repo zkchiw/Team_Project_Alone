@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="UTF-8">
+    <title>경기일정</title>
+    <style>
+        #sample {margin:auto ; padding: 10px ;border: solid red 1px}
+        #sample td {padding: 10px; }
+        tr{border: 1px black}
+    </style>
+    <script src ="/css/vendor/js/DateSelector.js"></script>
+</head>
+<body>
+
+   <div><label for="date">날짜</label>
+        <select id = date onchange ="goThere()" >
+        <option value="">선택</option>
+        <option value="july_all">7월 전체일정</option>
+        <option value="july_02">07.02</option>
+        <option value="july_03">07.03</option>
+        <option value="july_05">07.05</option>
+        <option value="july_06">07.06</option>
+        <option value="july_08">07.08</option>
+        <option value="july_09">07.09</option>
+        <option value="july_10">07.10</option>
+        <option value="july_16">07.16</option>
+        <option value="july_30">07.30</option>
+        <option value="july_31">07.31</option>
+        </select>
+    </div>
+
+    <table id = 'sample'>
+        <tr>
+            <th>날짜</th>
+            <th>시간</th>
+            <th>팀1</th>
+            <th>팀2</th>
+        </tr>
+
+            <tr>
+            <td>2022.07.30</td>
+            <td>19:00</td>
+            <td>전북</td>
+            <td>제주</td>
+            </tr>
+
+            <tr>
+            <td>2022.07.30</td>
+            <td>19:00</td>
+            <td>수원</td>
+            <td>김천</td>
+            </tr>
+
+            <tr>
+            <td>2022.07.30</td>
+            <td>19:30</td>
+            <td>포항</td>
+            <td>서울</td>
+            </tr>
+
+            <tr>
+            <td>2022.07.30</td>
+            <td>20:00</td>
+            <td>울산</td>
+            <td>강원</td>
+            </tr>
+
+            <tr>
+            <td>2022.07.30</td>
+            <td>20:00</td>
+            <td>성남</td>
+            <td>인천</td>
+            </tr>
+
+    </table>
+
+</body>
+
+<script>
+  function goThere(){
+        const dater = document.querySelector('#date')
+        jk = dater.options[dater.selectedIndex]
+            if (jk.value==="july_all"){
+                location.href = "july_all"}
+            if(jk.value==="july_02"){
+                location.href = "july_02"}
+            if (jk.value==="july_03"){
+                location.href = "july_03"}
+            if (jk.value==="july_05"){
+                location.href = "july_05"}
+            if (jk.value==="july_06"){
+                location.href = "july_06"}
+            if (jk.value==="july_08"){
+                location.href = "july_08"}
+            if (jk.value==="july_09"){
+                location.href = "july_09"}
+            if (jk.value==="july_10"){
+                location.href = "july_10"}
+            if (jk.value==="july_16"){
+                location.href = "july_16"}
+            if (jk.value==="july_30"){
+                location.href = "july_30"}
+            if (jk.value==="july_31"){
+                location.href = "july_31"}}
+</script>
+
+</html>

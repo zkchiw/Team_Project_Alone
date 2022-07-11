@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+
+    {% load split %}
+    <meta charset="UTF-8">
+    <title>경기일정</title>
+    <style>
+        #sample {margin:auto ; padding: 10px ;border: solid red 1px}
+        #sample td {padding: 10px; }
+        tr{border: 1px black}
+    </style>
+    <script src ="/css/vendor/js/DateSelector.js"></script>
+
+</head>
+<body>
+
+    <div><label for="date">날짜</label>
+        <select id = date onchange ="goThere()" >
+        <option value="">선택</option>
+        <option value="july_all">7월 전체일정</option>
+        <option value="july_02">07.02</option>
+        <option value="3">07.03</option>
+        <option value="5">07.05</option>
+        <option value="6">07.06</option>
+        <option value="8">07.08</option>
+        <option value="9">07.09</option>
+        <option value="10">07.10</option>
+        <option value="16">07.16</option>
+        <option value="30">07.30</option>
+        <option value="31">07.31</option>
+        </select>
+    </div>
+
+    <table id = 'sample'>
+        <tr>
+            <th>날짜</th>
+            <th>시간</th>
+            <th>팀1</th>
+            <th>팀2</th>
+        </tr>
+
+        <tr>
+            <td>{{ date }}</td>
+            <td>{{ time }}</td>
+            <td>{{ gudan1 }}</td>
+            <td>{{ gudan2 }}</td>
+        </tr>
+
+           <tr>
+            <td>sample1</td>
+            <td>sample1</td>
+            <td>sample1</td>
+            <td>sample1</td>
+        </tr>
+    </table>
+
+    <div><button id="two">07.02</button></div>
+
+</body>
+
+<script>
+
+    let two = document.querySelector('#two')
+    two.addEventListener('click', ()=>{
+        location.href= 'july_02' })
+
+    {#일단 버튼을 이용한 이동은 제대로 작동되고있음. location에서 넘어가는것도 멀쩡함. #}
+    {#문제는 select를 이동한 이동이 제대로 되지 않는다는 것#}
+    {#임시방편으로 location.href를 이용해서 걸어놓긴 했지만 이러면 주소가 그대로 노출된다#}
+    {#다른 방식으로 하고 싶은데#}
+
+
+    {#goThere()함수 생성해서 select에서 이동#}
+    function goThere(){
+        const dater = document.querySelector('#date')
+        jk = dater.options[dater.selectedIndex]
+            if (jk.value==="july_all"){
+                location.href = "july_all"}
+            if(jk.value==="july_02"){
+                location.href = "july_02"}
+            if (jk.value==="july_03"){
+                location.href = "july_03"}
+            if (jk.value==="july_05"){
+                location.href = "july_05"}
+            if (jk.value==="july_06"){
+                location.href = "july_06"}
+            if (jk.value==="july_08"){
+                location.href = "july_08"}
+            if (jk.value==="july_09"){
+                location.href = "july_09"}
+            if (jk.value==="july_10"){
+                location.href = "july_10"}
+            if (jk.value==="july_16"){
+                location.href = "july_16"}
+            if (jk.value==="july_30"){
+                location.href = "july_30"}
+            if (jk.value==="july_31"){
+                location.href = "july_31"}}
+</script>
+
+</html>
