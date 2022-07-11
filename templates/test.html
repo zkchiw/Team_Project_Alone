@@ -1,36 +1,26 @@
-<!DOCTYPE html>
-<html lang="ko-kr">
-<head>
-    <meta charset="UTF-8">
-    <title>test</title>
-</head>
-    <style>
-        ul {list-style: none}
-        .nexist{color: red}
-        ul li{margin : 10px}
-    </style>
+{% extends 'layout/Private_Base.html' %}
+{% load static %}
+{% block title %}{% endblock%}
+{% block style %}{% endblock%}
 
-<body>
+{% block contents %}
+<label>
+    <select onchange="if(this.value) location.href=(this.value);">
+         <option value="">선택</option>
+            <option value="all">7월 전체일정</option>
+            <option value="http://127.0.0.1:8000/schedule/july_02">07.02</option>
+            <option value="3">07.03</option>
+            <option value="5">07.05</option>
+            <option value="6">07.06</option>
+            <option value="8">07.08</option>
+            <option value="9">07.09</option>
+            <option value="10">07.10</option>
+            <option value="16">07.16</option>
+            <option value="30">07.30</option>
+            <option value="31">07.31</option>
+    </select>
+</label>
+{% endblock %}
 
-<div>
-    <ul>
-        <li><button type="button" onclick="location.href='https://www.uhshop.co.kr/'">울산 현대 축구단</button></li>
-        <li><button type="button" class="nexist" onclick="location.href=''">전북 현대</button></li>
-        <li><button type="button" onclick="location.href='https://www.fcphshop.com/'">포항 스틸러스</button></li>
-        <li><button type="button" onclick="location.href='https://www.jeju-utd.com/shop/shop.asp'">제주 유나이티드</button></li>
-        <li><button type="button" class="nexist" onclick="location.href=''">인천 유나이티드</button></li>
-        <li><button type="button" onclick="location.href='https://daegufcmall.co.kr/'">대구FC</button></li>
-        <li><button type="button" onclick="location.href='https://www.fcseoul.com/fcshop'">FC서울</button></li>
-        <li><button type="button"  class="nexist" onclick="location.href=''">수원FC</button></li>
-        <li><button type="button"  class="nexist" onclick="location.href=''">강원FC</button></li>
-        <li><button type="button" onclick="location.href='https://gimcheonfcshop.com/'">김천 상무 프로축구단</button></li>
-        <li><button type="button"  class="nexist" onclick="location.href=''">수원 삼성 블루윙즈</button></li>
-        <li><button type="button"  class="nexist" onclick="location.href=''">성남FC</button></li>
-    </ul>
-</div>
-
-
-
-
-</body>
-</html>
+{% block script %}
+{% endblock %}
